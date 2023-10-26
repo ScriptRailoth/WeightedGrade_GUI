@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 /**
  *  Main method for running GradeBook
@@ -9,13 +10,13 @@ import java.util.Scanner;
  *  5. It will repeat the calculation all over again if they ask.
  */
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
         boolean continueCalculation = true;
 
         do {
-
+            // Console-based calculation
             System.out.print("Enter the point total for the assignment: ");
             double pointTotal = input.nextDouble();
 
@@ -30,6 +31,15 @@ public class Main {
 
             System.out.println("Total Weighted Grade: " + newCalculation.getTotalWeightedGrade());
 
+            // GUI-based calculation
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    new GradeBookGUI(pointTotal, earnedPoints, assignmentPercentage).setVisible(true);
+                }
+            });
+
+            // Ask if the user wants to perform another calculation
             System.out.print("Do you want to perform another calculation? (yes/no): ");
             String choice = input.next().toLowerCase();
 
